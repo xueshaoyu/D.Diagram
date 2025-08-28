@@ -23,7 +23,6 @@ jobs:
         run: dotnet restore
       - name: Pack NuGet package
         run: |
-          cd Source\Control\D.Diagram.Presenter.Workflow
-          dotnet pack D.Diagram.Presenter.Workflow.csproj  --configuration Release -o out
+          dotnet pack  -c Release -o out Source\Control\D.Diagram.Presenter.Workflow\D.Diagram.Presenter.Workflow.csproj
       - name: Publish NuGet package
         run: dotnet nuget push .\out\*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NuGetAPIKey }}
