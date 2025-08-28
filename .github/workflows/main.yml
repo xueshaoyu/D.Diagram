@@ -12,12 +12,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.x
+            7.x
+            8.x
+            9.x
       - name: Restore NuGet packages
         run: dotnet restore
       - name: Pack NuGet package
         run: |
           cd Source\Control\D.Diagram.Presenter.Workflow
-          dotnet pack D.Diagram.Presenter.Workflow.csproj  --configuration Release
+          dotnet pack D.Diagram.Presenter.Workflow.csproj  --configuration Release -o out
       - name: Publish NuGet package
-        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --Source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push .\out\*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NuGetAPIKey }}
