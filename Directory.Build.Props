@@ -1,0 +1,32 @@
+﻿<Project>
+  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+    <PackageIcon>logo.png</PackageIcon>
+    <TargetFrameworks>net6.0-windows;net7.0-windows;net8.0-windows;</TargetFrameworks>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <LangVersion>9.0</LangVersion>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Copyright>Copyright © Djp2024-2024</Copyright>
+    <Authors>Djp</Authors>
+    <RepositoryUrl>https://github.com/xueshaoyu/D.Diagram</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/xueshaoyu/D.Diagram</PackageProjectUrl>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Resource Include="**\*.png" />
+    <Resource Include="**\*.jpg" />
+    <Resource Include="**\*.cur" />
+    <Resource Include="**\*.ico" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\..\Document\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

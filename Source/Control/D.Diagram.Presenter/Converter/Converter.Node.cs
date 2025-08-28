@@ -1,0 +1,4 @@
+﻿namespace D.Diagram.Presenter
+{
+
+}
