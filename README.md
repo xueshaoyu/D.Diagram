@@ -13,8 +13,8 @@
     <a href="https://www.nuget.org/packages?q=D.Diagram.DrawingBox">
         <img alt="nuget-version" src="https://img.shields.io/nuget/v/D.Diagram.DrawingBox.svg"></img>
     </a>
-     <a href="https://github.com/xueshaoyu/WPF-Diagram/actions?query=workflow%3Abuild">
-        <img alt="Github-build-status" src="https://github.com/xueshaoyu/WPF-Diagram/actions/workflows/main.yml/badge.svg"></img>
+     <a href="https://github.com/xueshaoyu/D.Diagram/actions?query=workflow%3Abuild">
+        <img alt="Github-build-status" src="https://github.com/xueshaoyu/D.Diagram/actions/workflows/main.yml/badge.svg"></img>
     </a>
 </p>
  
