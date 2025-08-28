@@ -15,7 +15,9 @@ jobs:
         uses: actions/setup-dotnet@v1
       - name: Restore NuGet packages
         run: dotnet restore
-      - name: Pack
-        run: dotnet build --configuration Release
-      - name: Push
-        run: dotnet nuget push .\Source\*\*\bin\Release\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NuGetAPIKey }} --skip-duplicate --no-symbols 1
+      - name: Pack NuGet package
+        run: |
+          cd Source\Control\D.Diagram.Presenter.Workflow
+          dotnet pack D.Diagram.Presenter.Workflow.csproj  --configuration Release
+      - name: Publish NuGet package
+        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
