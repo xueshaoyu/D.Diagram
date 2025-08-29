@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <ItemGroup>
-    <PackageId>MyCustom.Package.Id</PackageId>
     <ProjectReference Include="..\D.Diagram.Presenter\D.Diagram.Presenter.csproj" />
   </ItemGroup>
 </Project>
