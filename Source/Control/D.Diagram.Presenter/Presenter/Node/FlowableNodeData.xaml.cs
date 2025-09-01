@@ -12,6 +12,9 @@ using System.Xml.Serialization;
 
 namespace D.Diagram.Presenter
 {
+    /// <summary>
+    /// 流程图节点数据
+    /// </summary>
     public class FlowableNodeData : TextNodeData, IFlowableNode
     {
         [XmlIgnore]
