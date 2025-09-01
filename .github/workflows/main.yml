@@ -23,8 +23,8 @@ jobs:
         run: echo "VERSION=$(date '+%Y.%m%d')" >> $GITHUB_ENV
       - name: Pack NuGet package
         run: |
-          dotnet build --version-suffix ${{ env.VERSION }} -c Release -o out Source\Control\D.Diagram.DrawingBox\D.Diagram.DrawingBox.csproj
-          dotnet build --version-suffix ${{ env.VERSION }} -c Release -o out Source\Control\D.Diagram.Presenter\D.Diagram.Presenter.csproj
-          dotnet pack --version-suffix ${{ env.VERSION }} -c Release -o out Source\Control\D.Diagram.Presenter.Workflow\D.Diagram.Presenter.Workflow.csproj
+          dotnet pack -c Release --version-suffix ${{ env.VERSION }} -o out Source\Control\D.Diagram.DrawingBox\D.Diagram.DrawingBox.csproj
+          dotnet pack -c Release --version-suffix ${{ env.VERSION }} -o out Source\Control\D.Diagram.Presenter\D.Diagram.Presenter.csproj
+          dotnet pack -c Release --version-suffix ${{ env.VERSION }}  -o out Source\Control\D.Diagram.Presenter.Workflow\D.Diagram.Presenter.Workflow.csproj
       - name: Publish NuGet package
         run: dotnet nuget push .\out\*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NuGetAPIKey }}
