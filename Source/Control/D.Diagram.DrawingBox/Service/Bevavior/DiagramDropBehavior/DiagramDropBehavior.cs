@@ -26,7 +26,6 @@ namespace D.Diagram.DrawingBox
             var now = DateTime.Now;
             if (_isProcessingDrop || (now - _lastDropTime).TotalMilliseconds < MIN_DROP_INTERVAL)
             {
-                Debug.WriteLine($"忽略AssociatedObject_Drop");
                 e.Handled = true;
                 return;
             }
