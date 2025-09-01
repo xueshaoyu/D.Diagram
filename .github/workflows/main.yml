@@ -19,8 +19,8 @@ jobs:
             7.x
             8.x
             9.x
-      - name: Get Version
-        run: echo "VERSION=$(date '+%Y.%m%d')" >> $GITHUB_ENV
+      - name: Restore NuGet packages
+        run: dotnet restore
       - name: Pack NuGet package
         run: |
           dotnet pack -c Release -o out Source\Control\D.Diagram.Presenter.Workflow\D.Diagram.Presenter.Workflow.csproj
