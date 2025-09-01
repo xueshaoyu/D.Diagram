@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\D.Diagram.DrawingBox\D.Diagram.DrawingBox.csproj"  PrivateAssets="All"/>
+    <ProjectReference Include="..\D.Diagram.DrawingBox\D.Diagram.DrawingBox.csproj"/>
   </ItemGroup>
 </Project>
