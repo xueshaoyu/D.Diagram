@@ -15,42 +15,64 @@ namespace D.Diagram.DrawingBox
         {
             this.AssociatedObject.Drop += AssociatedObject_Drop;
         }
-
+        // 添加状态标记和时间戳防止重复处理
+        private bool _isProcessingDrop = false;
+        private DateTime _lastDropTime = DateTime.MinValue;
+        private const int MIN_DROP_INTERVAL = 200; // 最小拖放处理间隔(毫秒)
+        
         private void AssociatedObject_Drop(object sender, DragEventArgs e)
         {
-            IDragAdorner adorner = e.Data.GetData("DragGroup") as IDragAdorner;
-
-            if (adorner == null) return;
-
-            Point offset = adorner.Offset;
-
-            Point location = e.GetPosition(this.AssociatedObject);
-
-            ICloneable obj = ((adorner as System.Windows.Documents.Adorner).AdornedElement as FrameworkElement).DataContext as ICloneable;
-
-            if (obj == null)
+            // 防止重入和快速重复处理
+            var now = DateTime.Now;
+            if (_isProcessingDrop || (now - _lastDropTime).TotalMilliseconds < MIN_DROP_INTERVAL)
             {
-                throw new ArgumentException("没有实现ICloneable接口");
+                Debug.WriteLine($"忽略AssociatedObject_Drop");
+                e.Handled = true;
+                return;
             }
-
-            //if (this.AssociatedObject.NodesSource is IList collection)
-            //{
-            object content = obj.Clone();
-
-            Node node = this.Create(content as INodeData);
-
-            node.Content = content;
-
-            node.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            node.Location = new Point(location.X - offset.X + (node.DesiredSize.Width / 2), location.Y - offset.Y + (node.DesiredSize.Height / 2));
-
-
-            //collection.Add(node);
-
-            //this.AssociatedObject.RefreshData();
-
-            this.AssociatedObject.AddNode(node);
-            //}
+            try
+            {
+                _isProcessingDrop = true;
+                _lastDropTime = now;
+                IDragAdorner adorner = e.Data.GetData("DragGroup") as IDragAdorner;
+    
+                if (adorner == null) return;
+    
+                Point offset = adorner.Offset;
+    
+                Point location = e.GetPosition(this.AssociatedObject);
+    
+                ICloneable obj = ((adorner as System.Windows.Documents.Adorner).AdornedElement as FrameworkElement).DataContext as ICloneable;
+    
+                if (obj == null)
+                {
+                    throw new ArgumentException("没有实现ICloneable接口");
+                }
+    
+                //if (this.AssociatedObject.NodesSource is IList collection)
+                //{
+                object content = obj.Clone();
+    
+                Node node = this.Create(content as INodeData);
+    
+                node.Content = content;
+    
+                node.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                node.Location = new Point(location.X - offset.X + (node.DesiredSize.Width / 2), location.Y - offset.Y + (node.DesiredSize.Height / 2));
+    
+    
+                //collection.Add(node);
+    
+                //this.AssociatedObject.RefreshData();
+    
+                this.AssociatedObject.AddNode(node);
+                //}
+                }
+               finally
+               {
+                   // 确保状态重置
+                   _isProcessingDrop = false;
+               }
 
         }
 
