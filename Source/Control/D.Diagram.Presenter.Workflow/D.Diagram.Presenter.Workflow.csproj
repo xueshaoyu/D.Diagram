@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <ItemGroup>
 
-    <ProjectReference Include="..\D.Diagram.Presenter\D.Diagram.Presenter.csproj" />
+    <ProjectReference Include="..\D.Diagram.Presenter\D.Diagram.Presenter.csproj"  PrivateAssets="All" />
   </ItemGroup>
 </Project>
