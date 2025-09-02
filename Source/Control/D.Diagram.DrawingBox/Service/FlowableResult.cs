@@ -2,6 +2,9 @@
 
 namespace D.Diagram.DrawingBox
 {
+    /// <summary>
+    /// 流程执行结果
+    /// </summary>
     public class FlowableResult : IFlowableResult
     {
         public FlowableResult(string message)
@@ -13,6 +16,10 @@ namespace D.Diagram.DrawingBox
         public FlowableResultState State { get; set; }
     }
 
+    /// <summary>
+    /// 有返回值的流程执行结果
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class FlowableResult<T> : FlowableResult
     {
         public FlowableResult(T t) : base(null)

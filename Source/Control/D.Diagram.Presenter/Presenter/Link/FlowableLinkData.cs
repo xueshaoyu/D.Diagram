@@ -12,6 +12,9 @@ using System.Xml.Serialization;
 
 namespace D.Diagram.Presenter
 {
+    /// <summary>
+    /// 流程链接数据
+    /// </summary>
     public class FlowableLinkData : TextLinkData, IFlowableLink
     {
         private FlowableState _state = FlowableState.Ready;
@@ -170,8 +173,11 @@ namespace D.Diagram.Presenter
             return true;
         }
     }
-
-    public class FlowableLinkData<T> : FlowableLinkData where T : Enum
+    /// <summary>
+    /// 带结果的流程链接数据
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class FlowableLinkData<T> : FlowableLinkData
     {
         public FlowableLinkData()
         {
