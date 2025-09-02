@@ -110,7 +110,10 @@ namespace D.Diagram.DrawingBox
             if (diagram._dynamicLink.FromPort == this.AssociatedObject) return;
             e.Handled = true;
             Port port = sender as Port;
+            var error = diagram._dynamicLink.HasError || this.AssociatedObject.HasError;
             this.Clear();
+            if (error)
+                return;
             this.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
             {
                 this.Create(port);
