@@ -1,4 +1,3 @@
-// Copyright ? 2022 By HeBianGu(QQ:908293466) https://github.com/HeBianGu/WPF-Control
 
 using System.Windows;
 using System.Windows.Markup;
@@ -12,11 +11,11 @@ using System.Windows.Markup;
                                               // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: XmlnsDefinition("QQ:908293466", "D.Diagram.Presenter")]
-[assembly: XmlnsPrefix("QQ:908293466", "h")]
+[assembly: XmlnsDefinition("QQ:75668578", "D.Diagram.Presenter")]
+[assembly: XmlnsPrefix("QQ:75668578", "h")]
 
-[assembly: XmlnsDefinition("https://github.com/HeBianGu", "D.Diagram.Presenter")]
-[assembly: XmlnsPrefix("https://github.com/HeBianGu", "h")]
+[assembly: XmlnsDefinition("https://github.com/xueshaoyu", "D.Diagram.Presenter")]
+[assembly: XmlnsPrefix("https://github.com/xueshaoyu", "h")]
 
 
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "D.Diagram.Presenter")]

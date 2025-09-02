@@ -1,4 +1,4 @@
-﻿// Copyright © 2024 By HeBianGu(QQ:908293466) https://github.com/HeBianGu/WPF-Control
+﻿// Copyright © 2024 By xueshaoyu(QQ:75668578) https://github.com/xueshaoyu
 
 using Microsoft.Xaml.Behaviors;
 using System;
