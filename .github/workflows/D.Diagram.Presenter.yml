@@ -23,6 +23,6 @@ jobs:
         run: dotnet restore
       - name: Pack NuGet package
         run: |
-          dotnet pack -c Release -o out Source\Control\D.Diagram.Presenter\D.Diagram.Presentercsproj
+          dotnet pack -c Release -o out Source\Control\D.Diagram.Presenter\D.Diagram.Presenter.csproj
       - name: Publish NuGet package
         run: dotnet nuget push .\out\*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NuGetAPIKey }}
