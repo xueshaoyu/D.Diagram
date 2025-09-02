@@ -32,4 +32,4 @@ jobs:
          dotnet pack --no-build --version-suffix ${{ env.VERSION }} -c Release -o out  Source\Control\D.Diagram.Presenter.Workflow\D.Diagram.Presenter.Workflow.csproj
     - name: Publish
       run: |
-        dotnet nuget push .\out\*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.nugetKey }}
+        dotnet nuget push .\out\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NuGetAPIKey }}
