@@ -3,7 +3,9 @@
 
 
 using D.Diagram.DrawingBox;
+using D.Diagram.Presenter.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
@@ -177,7 +179,7 @@ namespace D.Diagram.Presenter
     /// 带结果的流程链接数据
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class FlowableLinkData<T> : FlowableLinkData
+    public class FlowableLinkData<T> : FlowableLinkData where T : IComparable
     {
         public FlowableLinkData()
         {
@@ -196,6 +198,21 @@ namespace D.Diagram.Presenter
             }
         }
 
+        private CompareOperator _compareOperator;
+        /// <summary>
+        /// 比较运算符
+        /// </summary>
+        [Display(Name = "节点比较符号", GroupName = "常用")]
+        public CompareOperator CompareOperator
+        {
+            get { return _compareOperator; }
+            set
+            {
+                _compareOperator = value;
+                RaisePropertyChanged();
+                this.RefreshText();
+            }
+        }
         private void RefreshText()
         {
             DisplayEnumConverter display = new DisplayEnumConverter(typeof(T));
@@ -206,11 +223,29 @@ namespace D.Diagram.Presenter
             if (flowableResult is FlowableResult<T> result)
             {
                 //  Do ：结果类型相同，并且参数值相同才可以执行
-                return this.NodeResult.Equals(result.Value);
+                var compareResult = NodeResult.CompareTo(result.Value);
+
+                switch (CompareOperator)
+                {
+                    case CompareOperator.Equal:
+                        return compareResult == 0;
+                    case CompareOperator.NotEqual:
+                        return compareResult != 0;
+                    case CompareOperator.Greater:
+                        return compareResult < 0;
+                    case CompareOperator.GreaterEqual:
+                        return compareResult < 0 || compareResult == 0;
+                    case CompareOperator.Less:
+                        return compareResult > 0;
+                    case CompareOperator.LessEqual:
+                        return compareResult > 0 || compareResult == 0;
+                }
             }
             return false;
         }
     }
+
+
 
     [TypeConverter(typeof(DisplayEnumConverter))]
     public enum BoolResult
@@ -219,5 +254,25 @@ namespace D.Diagram.Presenter
         True,
         [Display(Name = "否")]
         False
+    }
+
+    /// <summary>
+    /// 比较运算符号
+    /// </summary>
+    [TypeConverter(typeof(DisplayEnumConverter))]
+    public enum CompareOperator
+    {
+        [Display(Name = "=")]
+        Equal,
+        [Display(Name = "!=")]
+        NotEqual,
+        [Display(Name = ">")]
+        Greater,
+        [Display(Name = ">=")]
+        GreaterEqual,
+        [Display(Name = "<")]
+        Less,
+        [Display(Name = "<=")]
+        LessEqual,
     }
 }

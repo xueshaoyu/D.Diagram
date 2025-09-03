@@ -3,6 +3,7 @@
 
 using D.Diagram.DrawingBox;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
@@ -209,7 +210,7 @@ namespace D.Diagram.Presenter
 
     }
 
-    public class FlowablePortData<T> : FlowablePortData where T : Enum
+    public class FlowablePortData<T> : FlowablePortData where T: IComparable
     {
         public FlowablePortData()
         {
