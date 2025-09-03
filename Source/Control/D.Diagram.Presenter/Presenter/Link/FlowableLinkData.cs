@@ -1,9 +1,4 @@
-﻿
-
-
-
-using D.Diagram.DrawingBox;
-using D.Diagram.Presenter.Utils;
+﻿using D.Diagram.DrawingBox;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
