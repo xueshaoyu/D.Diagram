@@ -12,6 +12,9 @@ using System.Xml.Serialization;
 
 namespace D.Diagram.Presenter
 {
+    /// <summary>
+    /// 不带结果的流程端口数据
+    /// </summary>
     public class FlowablePortData : TextPortData, IFlowablePort
     {
         public FlowablePortData()
@@ -210,6 +213,10 @@ namespace D.Diagram.Presenter
 
     }
 
+    /// <summary>
+    /// 带结果的流程端口数据
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class FlowablePortData<T> : FlowablePortData where T: IComparable
     {
         public FlowablePortData()
@@ -221,10 +228,41 @@ namespace D.Diagram.Presenter
         {
 
         }
+
+        public FlowablePortData(string nodeID, PortType portType,T value) : base(nodeID, portType)
+        {
+            PortResult = value;
+        }
+
         public override ILinkData CreateLinkData()
         {
             return new FlowableLinkData<T>() { FromNodeID = this.NodeID, FromPortID = this.ID };
         }
+        private T _portResult;
+        [Display(Name = "端口结果", GroupName = "常用")]
+        public T PortResult
+        {
+            get { return _portResult; }
+            set
+            {
+                _portResult = value;
+                RaisePropertyChanged();
+            }
+        }
 
+        private CompareOperator _compareOperator;
+        /// <summary>
+        /// 比较运算符
+        /// </summary>
+        [Display(Name = "端口比较符号", GroupName = "常用")]
+        public CompareOperator CompareOperator
+        {
+            get { return _compareOperator; }
+            set
+            {
+                _compareOperator = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 }
