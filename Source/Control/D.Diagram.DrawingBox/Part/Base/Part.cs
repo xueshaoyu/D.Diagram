@@ -50,8 +50,29 @@ namespace D.Diagram.DrawingBox
 
             this.CommandBindings.Add(binding);
 
-            this.MouseLeftButtonDown += Part_MouseLeftButtonDown;
+            this.MouseLeftButtonDown += Part_MouseLeftButtonDown;   
+            
+            //添加双击命令事件
+            MouseBinding keyBinding = new MouseBinding(LeftDoubleClickCommand, new MouseGesture(MouseAction.LeftDoubleClick));
+            this.InputBindings.Add(keyBinding);
         }
+
+        public RelayCommand LeftDoubleClickCommand => new RelayCommand((s, e) =>
+        {
+            OnLeftMouseDoubleClickEvent?.Invoke(s, e);
+        });
+        /// <summary>
+        /// 右键双击委托
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="sender"></param>
+        public delegate void OnLeftMouseDoubleClickdelegate(IRelayCommand command, object sender);
+
+        /// <summary>
+        /// 右键双击事件
+        /// </summary>
+        public event OnLeftMouseDoubleClickdelegate OnLeftMouseDoubleClickEvent;
+        
 
         private void Part_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
