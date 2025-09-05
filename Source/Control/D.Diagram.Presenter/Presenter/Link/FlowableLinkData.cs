@@ -100,7 +100,7 @@ namespace D.Diagram.Presenter
         [Display(Name = "执行")]
         public RelayCommand InvokeCommand => new RelayCommand(async l => await this.TryInvokeAsync(null, null));
 
-        public IFlowableResult Invoke(Part previors, Link current)
+        public virtual IFlowableResult Invoke(Part previors, Link current)
         {
             Thread.Sleep(1000);
             if (true)
@@ -182,7 +182,7 @@ namespace D.Diagram.Presenter
         }
         private T _nodeResult;
         [Display(Name = "节点结果", GroupName = "常用")]
-        public T NodeResult
+        public virtual T NodeResult
         {
             get { return _nodeResult; }
             set
@@ -198,7 +198,7 @@ namespace D.Diagram.Presenter
         /// 比较运算符
         /// </summary>
         [Display(Name = "节点比较符号", GroupName = "常用")]
-        public CompareOperator CompareOperator
+        public virtual CompareOperator CompareOperator
         {
             get { return _compareOperator; }
             set

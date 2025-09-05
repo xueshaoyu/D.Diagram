@@ -114,7 +114,7 @@ namespace D.Diagram.Presenter
         [Display(Name = "执行")]
         public RelayCommand InvokeCommand => new RelayCommand(async l => await this.TryInvokeAsync(null, null));
 
-        public IFlowableResult Invoke(Part previors, Port current)
+        public virtual IFlowableResult Invoke(Part previors, Port current)
         {
             Thread.Sleep(100);
             if (true)
@@ -228,6 +228,10 @@ namespace D.Diagram.Presenter
         {
 
         }
+        public override IFlowableResult Invoke(Part previors, Port current)
+        {
+            return base.Invoke(previors, current);
+        }
 
         public FlowablePortData(string nodeID, PortType portType,T value) : base(nodeID, portType)
         {
@@ -240,7 +244,7 @@ namespace D.Diagram.Presenter
         }
         private T _portResult;
         [Display(Name = "端口结果", GroupName = "常用")]
-        public T PortResult
+        public virtual T PortResult
         {
             get { return _portResult; }
             set
@@ -255,7 +259,7 @@ namespace D.Diagram.Presenter
         /// 比较运算符
         /// </summary>
         [Display(Name = "端口比较符号", GroupName = "常用")]
-        public CompareOperator CompareOperator
+        public virtual CompareOperator CompareOperator
         {
             get { return _compareOperator; }
             set
