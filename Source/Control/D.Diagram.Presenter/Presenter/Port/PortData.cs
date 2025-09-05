@@ -61,10 +61,23 @@ namespace D.Diagram.Presenter
 
     public abstract class PortDataBase : DisplayBindableBase, IPortData
     {
+        [XmlIgnore]
+        [Display(Name = "属性编辑", GroupName = "编辑")]
+        public RelayCommand DoubleClickCommand { get; private set; }
         public PortDataBase()
         {
             this.Name = this.Name == this.ID ? "端口" : this.Name;
             this.ID = Guid.NewGuid().ToString();
+
+            DoubleClickCommand = new RelayCommand(LeftMouseDoubleClickAction);
+        }
+        /// <summary>
+        /// 双击执行的动作
+        /// </summary>
+        /// <param name="obj"></param>
+        public virtual void LeftMouseDoubleClickAction(object obj)
+        {
+
         }
 
         public PortDataBase(string nodeID) : this()

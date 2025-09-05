@@ -1,9 +1,10 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-                    xmlns:h="https://github.com/xueshaoyu"
-                    xmlns:local="clr-namespace:D.Diagram.Presenter"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:h="https://github.com/xueshaoyu"
+    xmlns:local="clr-namespace:D.Diagram.Presenter"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/D.Diagram.Presenter;component/Presenter/Node/FlowableNodeData.xaml" />
@@ -20,10 +21,11 @@
         <ResourceDictionary Source="pack://application:,,,/D.Diagram.Presenter;component/Presenter/Port/FlowablePortData.xaml" />
         <ResourceDictionary Source="pack://application:,,,/D.Diagram.Presenter;component/Presenter/Port/TextPortData.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Style x:Key="{ComponentResourceKey ResourceId=S.TextBox.Text,
-                                        TypeInTargetAssembly={x:Type local:DiagramKeys}}"
-           BasedOn="{StaticResource {x:Type TextBox}}"
-           TargetType="TextBox">
+    <Style
+        x:Key="{ComponentResourceKey ResourceId=S.TextBox.Text,
+                                     TypeInTargetAssembly={x:Type local:DiagramKeys}}"
+        BasedOn="{StaticResource {x:Type TextBox}}"
+        TargetType="TextBox">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="1" />
         <Setter Property="Height" Value="Auto" />
@@ -185,8 +187,7 @@
 
     <DataTemplate DataType="{x:Type local:DiagramBase}">
         <Grid>
-            <Grid x:Name="grid_snapshoot"
-                  Background="LightGray">
+            <Grid x:Name="grid_snapshoot" Background="LightGray">
                 <!--<Grid.ContextMenu>
                     <ContextMenu>
                         <ContextMenu.Template>
@@ -232,10 +233,11 @@
                                UseSplitVerticalLine="{Binding Source={x:Static h:DiagramSetting.Instance}, Path=UseSplitVerticalLine}"
                                UseText="{Binding Source={x:Static h:DiagramSetting.Instance}, Path=UseText}"
                                UseTop="{Binding Source={x:Static h:DiagramSetting.Instance}, Path=UseTop}" />-->
-                <Border Margin="20"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Background="Transparent">
+                <Border
+                    Margin="20"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="Transparent">
                     <!--<h:ScrollViewerTransfor x:Name="svt1"
                                             AllowDrop="False"
                                             Background="Transparent"
@@ -329,24 +331,27 @@
                         </Grid>
                     </h:ZoomBox>-->
                 </Border>
-                <Border Margin="10"
+                <Border
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Background="white"
+                    Visibility="{Binding ElementName=diagram, Path=Message, Converter={local:NullToCollapsedConveter}}">
+                    <TextBlock
+                        Margin="10,6"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        Background="white"
-                        Visibility="{Binding ElementName=diagram, Path=Message, Converter={local:NullToCollapsedConveter}}">
-                    <TextBlock Margin="10,6"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Foreground="blue"
-                               Text="{Binding ElementName=diagram, Path=Message}" />
+                        VerticalAlignment="Center"
+                        Foreground="blue"
+                        Text="{Binding ElementName=diagram, Path=Message}" />
                 </Border>
             </Grid>
 
-            <Grid Width="150"
-                  Height="150"
-                  Margin="0,0,0,0"
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Bottom">
+            <Grid
+                Width="150"
+                Height="150"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom">
                 <!--  h:TransitionService.IsVisible="{Binding ProjectData.SystemSet.IsLocatorVisible}"  -->
                 <!--<h:ScrollViewerLocator x:Name="locator" MaskBackground="white" ScrollViewer="{Binding ElementName=svt1}" />
 

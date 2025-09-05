@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml.Serialization;
 
@@ -13,12 +14,23 @@ namespace D.Diagram.Presenter
 {
     public abstract class NodeDataBase : DisplayBindableBase, ICloneable
     {
+        [XmlIgnore]
+        [Display(Name = "属性编辑", GroupName = "编辑")]
+        public RelayCommand DoubleClickCommand { get; private set; }
         public NodeDataBase()
         {
             ID = Guid.NewGuid().ToString();
             InitPort();
+            DoubleClickCommand = new RelayCommand(LeftMouseDoubleClickAction);
         }
+        /// <summary>
+        /// 双击执行的动作
+        /// </summary>
+        /// <param name="obj"></param>
+        public virtual void LeftMouseDoubleClickAction(object obj)
+        {
 
+        }
 
         protected virtual void InitPort()
         {

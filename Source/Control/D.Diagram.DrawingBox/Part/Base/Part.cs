@@ -12,7 +12,7 @@ namespace D.Diagram.DrawingBox
     public abstract class Part : ContentPresenter
     {
         public static RoutedUICommand DeleteCommand = new RoutedUICommand();
-
+       
         //public string Id { get; set; } = Guid.NewGuid().ToString(); 
         public Rect Bound { get; private set; }
 
@@ -50,8 +50,8 @@ namespace D.Diagram.DrawingBox
 
             this.CommandBindings.Add(binding);
 
-            this.MouseLeftButtonDown += Part_MouseLeftButtonDown;   
-            
+            this.MouseLeftButtonDown += Part_MouseLeftButtonDown;
+
             //添加双击命令事件
             MouseBinding keyBinding = new MouseBinding(LeftDoubleClickCommand, new MouseGesture(MouseAction.LeftDoubleClick));
             this.InputBindings.Add(keyBinding);
@@ -59,19 +59,18 @@ namespace D.Diagram.DrawingBox
 
         public RelayCommand LeftDoubleClickCommand => new RelayCommand((s, e) =>
         {
-            OnLeftMouseDoubleClickEvent?.Invoke(s, e);
+            OnLeftMouseDoubleClickAction(s, e);
         });
+
         /// <summary>
-        /// 右键双击委托
+        /// 双击执行的动作
         /// </summary>
         /// <param name="command"></param>
         /// <param name="sender"></param>
-        public delegate void OnLeftMouseDoubleClickdelegate(IRelayCommand command, object sender);
+        public virtual void OnLeftMouseDoubleClickAction(IRelayCommand command, object sender)
+        {
 
-        /// <summary>
-        /// 右键双击事件
-        /// </summary>
-        public event OnLeftMouseDoubleClickdelegate OnLeftMouseDoubleClickEvent;
+        }
         
 
         private void Part_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -11,10 +11,23 @@ namespace D.Diagram.Presenter
 {
     public abstract class LinkDataBase : DisplayBindableBase, ILinkData
     {
+        [XmlIgnore]
+        [Display(Name = "属性编辑", GroupName = "编辑")]
+        public RelayCommand DoubleClickCommand { get; private set; }
         public LinkDataBase()
         {
             this.Name = "连线";
             this.ID = Guid.NewGuid().ToString();
+
+            DoubleClickCommand = new RelayCommand(LeftMouseDoubleClickAction);
+        }
+        /// <summary>
+        /// 双击执行的动作
+        /// </summary>
+        /// <param name="obj"></param>
+        public virtual void LeftMouseDoubleClickAction(object obj)
+        {
+
         }
 
         [Browsable(false)]

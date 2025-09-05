@@ -192,7 +192,7 @@ namespace D.Diagram.Presenter
                 this.RefreshText();
             }
         }
-
+     
         private CompareOperator _compareOperator;
         /// <summary>
         /// 比较运算符
@@ -211,7 +211,7 @@ namespace D.Diagram.Presenter
         private void RefreshText()
         {
             DisplayEnumConverter display = new DisplayEnumConverter(typeof(T));
-            this.Text = display.ConvertTo(this.NodeResult, typeof(string))?.ToString();
+            this.Text = $"{display.ConvertTo(this.CompareOperator, typeof(string))?.ToString()}{NodeResult}";             
         }
         public override bool IsMatchResult(FlowableResult flowableResult)
         {
