@@ -1,7 +1,8 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:h="https://github.com/xueshaoyu"
-                    xmlns:local="clr-namespace:D.Diagram.Presenter.Workflow">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:h="https://github.com/xueshaoyu"
+    xmlns:local="clr-namespace:D.Diagram.Presenter.Workflow">
 
 
     <!--<Style TargetType="{x:Type local:WorkflowNodeAdorner}">
