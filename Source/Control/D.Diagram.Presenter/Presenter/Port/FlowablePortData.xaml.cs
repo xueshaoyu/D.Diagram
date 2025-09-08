@@ -174,6 +174,13 @@ namespace D.Diagram.Presenter
         {
 
         }
+        /// <summary>
+        /// 重置
+        /// </summary>
+        public virtual void Reset()
+        {
+
+        }
 
         public virtual void Dispose()
         {

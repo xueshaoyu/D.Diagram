@@ -169,6 +169,13 @@ namespace D.Diagram.Presenter
         {
             return true;
         }
+        /// <summary>
+        /// 重置
+        /// </summary>
+        public virtual void Reset()
+        {
+
+        }
     }
     /// <summary>
     /// 带结果的流程链接数据

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace D.Diagram.DrawingBox
 {
@@ -102,9 +103,16 @@ namespace D.Diagram.DrawingBox
                     IEnumerable<Part> parts = this.Nodes.SelectMany(x => x.GetParts());
                     foreach (Part part in parts)
                     {
+                        part.Reset();
                         part.State = FlowableState.Ready;
                         if (part.Content is IFlowable flowable)
+                        {
+                            flowable.Reset();
                             flowable.State = FlowableState.Ready;
+                        }
+                        else { 
+                        
+                        }
                     }
                     this.State = DiagramFlowableState.None;
                 };

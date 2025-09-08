@@ -71,7 +71,10 @@ namespace D.Diagram.DrawingBox
         {
 
         }
-        
+        /// <summary>
+        /// 重置流程
+        /// </summary>
+        public virtual void Reset() { }
 
         private void Part_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

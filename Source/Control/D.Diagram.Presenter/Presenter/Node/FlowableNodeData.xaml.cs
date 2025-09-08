@@ -206,7 +206,13 @@ namespace D.Diagram.Presenter
         public virtual void Clear()
         {
         }
+        /// <summary>
+        /// 重置
+        /// </summary>
+        public virtual void Reset()
+        {
 
+        }
         public override ILinkData CreateLinkData()
         {
             return new FlowableLinkData() { FromNodeID = this.ID };

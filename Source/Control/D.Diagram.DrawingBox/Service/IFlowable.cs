@@ -10,6 +10,10 @@ namespace D.Diagram.DrawingBox
         //IFlowable FromFlowable { get; }
         FlowableState State { get; set; }
         void Clear();
+        /// <summary>
+        /// 重置
+        /// </summary>
+        void Reset();
     }
 
     public static class FlowableExtension
