@@ -9,14 +9,13 @@
             x:Name="boder"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-            <TextBox
+            <TextBlock
                 x:Name="txt"
                 MinWidth="30"
                 Margin="10,6"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Background="{Binding Background}"
-                BorderThickness="0"
                 FontFamily="{Binding FontFamily}"
                 FontSize="{Binding FontSize}"
                 FontStretch="{Binding FontStretch}"
@@ -35,12 +34,12 @@
                 </b:Interaction.Triggers>
 
 
-                <TextBox.InputBindings>
+                <TextBlock.InputBindings>
                     <MouseBinding Command="{Binding DoubleClickCommand}" MouseAction="LeftDoubleClick" />
-                </TextBox.InputBindings>
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Setter Property="CaretBrush">
+                </TextBlock.InputBindings>
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <!--<Setter Property="CaretBrush">
                             <Setter.Value>
                                 <SolidColorBrush Color="black" />
                             </Setter.Value>
@@ -55,10 +54,10 @@
                                 <Setter Property="BorderBrush" Value="blue" />
                                 <Setter Property="BorderThickness" Value="0.5" />
                             </Trigger>
-                        </Style.Triggers>
+                        </Style.Triggers>-->
                     </Style>
-                </TextBox.Style>
-            </TextBox>
+                </TextBlock.Style>
+            </TextBlock>
         </Border>
 
         <DataTemplate.Triggers>
