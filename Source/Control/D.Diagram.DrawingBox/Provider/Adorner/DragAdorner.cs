@@ -2,6 +2,7 @@
 
 
 
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 
@@ -15,11 +16,11 @@ namespace D.Diagram.DrawingBox
         private Brush vbrush;
         private Point location;
         public Point Offset { get; set; }
+        public double Scale { get; set; } = 1;
         public DrapAdornerMode DropAdornerMode { get; set; }
 
-        public DragAdorner(UIElement adornedElement, Point offset) : base(adornedElement)
+        public DragAdorner(UIElement adornedElement, Point offse) : base(adornedElement)
         {
-            this.Offset = offset;
             vbrush = new VisualBrush(AdornedElement);
             vbrush.Opacity = 0.5;
         }
@@ -36,19 +37,21 @@ namespace D.Diagram.DrawingBox
             if (this.DropAdornerMode == DrapAdornerMode.OnlyY)
             {
                 p = new Point(0, p.Y);
-                p.Offset(0, -Offset.Y);
+                p.Offset(0, -Offset.Y * Scale);
             }
             else if (this.DropAdornerMode == DrapAdornerMode.OnlyX)
             {
                 p = new Point(p.X, 0);
-                p.Offset(-Offset.X, 0);
+                p.Offset(-Offset.X * Scale, 0);
             }
             else
             {
-                p.Offset(-Offset.X, -Offset.Y);
+                p.Offset(-Offset.X * Scale, -Offset.Y * Scale);
             }
+            var renderSize = new Size(this.RenderSize.Width * Scale, this.RenderSize.Height * Scale);
+            var rect = new Rect(p, renderSize);
+            dc.DrawRectangle(vbrush, null, rect);
 
-            dc.DrawRectangle(vbrush, null, new Rect(p, this.RenderSize));
         }
         public object GetData()
         {

@@ -134,6 +134,9 @@ namespace D.Diagram.DrawingBox
 #endif
             point = Mouse.GetPosition(this.diagram);
             previous = LinkLayer.GetEnd(diagram._dynamicLink);
+            point = new Point((point.X - diagram.DragCanvas.DragOffset.X) / diagram.Scale, (point.Y - diagram.DragCanvas.DragOffset.Y) / diagram.Scale);
+            previous = new Point((previous.X - diagram.DragCanvas.DragOffset.X) / diagram.Scale, (previous.Y - diagram.DragCanvas.DragOffset.Y) / diagram.Scale);
+
             LinkLayer.SetEnd(diagram._dynamicLink, point);
 
             //this.Dispatcher.DelayInvoke(DispatcherPriority.SystemIdle, new Action(() =>
@@ -217,6 +220,7 @@ namespace D.Diagram.DrawingBox
             diagram._dynamicLink.ToPort = new Port();
             Point position = NodeLayer.GetPosition(port);
             Thickness thickness = port.Margin;
+
             position = new Point(position.X + ((thickness.Left - thickness.Right) / 2), position.Y + ((thickness.Top - thickness.Bottom) / 2));
 
             LinkLayer.SetStart(diagram._dynamicLink, position);

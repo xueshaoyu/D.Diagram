@@ -146,7 +146,7 @@ namespace D.Diagram.DrawingBox
             this.AssociatedObject._dynamicLink.ToPort = new Port();
             Point position = NodeLayer.GetPosition(port);
             Thickness thickness = port.Margin;
-            position = new Point(position.X + ((thickness.Left - thickness.Right) / 2), position.Y + ((thickness.Top - thickness.Bottom) / 2));
+            position = new Point((position.X + ((thickness.Left - thickness.Right) / 2)) / AssociatedObject.Scale, (position.Y + ((thickness.Top - thickness.Bottom) / 2)) / AssociatedObject.Scale);
 
             LinkLayer.SetStart(this.AssociatedObject._dynamicLink, position);
             LinkLayer.SetEnd(this.AssociatedObject._dynamicLink, position);

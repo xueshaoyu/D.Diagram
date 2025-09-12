@@ -39,22 +39,32 @@
             </Setter.Value>
         </Setter>
         <Setter Property="AllowDrop" Value="True" />
+        <Setter Property="ClipToBounds" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Diagram}">
-                    <AdornerDecorator>
-                        <Border
-                            Margin="{TemplateBinding Padding}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                            <Grid>
-                                <local:NodeLayer x:Name="NodeLayer" Duration="{TemplateBinding Duration}" />
-                                <local:LinkLayer x:Name="LinkLayer" Duration="{TemplateBinding Duration}" />
-                                <local:LinkLayer x:Name="DynamicLayer" />
-                            </Grid>
-                        </Border>
-                    </AdornerDecorator>
+                    <local:DragCanvas
+                        x:Name="DragCanvas"
+                        AllowZoom="{TemplateBinding AllowZoom}"
+                        Background="Transparent">
+                        <Canvas
+                            Width="{Binding ActualWidth, ElementName=DragCanvas}"
+                            Height="{Binding ActualHeight, ElementName=DragCanvas}"
+                            Background="Transparent">
+                            <Canvas
+                                Name="backgroundCanvas"
+                                Canvas.Left="-1E6"
+                                Canvas.Top="-1E6"
+                                Width="1E15"
+                                Height="1E15"
+                                AllowDrop="True"
+                                Background="{TemplateBinding Background}"
+                                IsHitTestVisible="False" />
+                        </Canvas>
+                        <local:NodeLayer x:Name="NodeLayer" Duration="{TemplateBinding Duration}" />
+                        <local:LinkLayer x:Name="LinkLayer" Duration="{TemplateBinding Duration}" />
+                        <local:LinkLayer x:Name="DynamicLayer" />
+                    </local:DragCanvas>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

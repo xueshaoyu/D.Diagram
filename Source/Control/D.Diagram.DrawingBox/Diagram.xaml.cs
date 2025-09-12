@@ -17,6 +17,8 @@ namespace D.Diagram.DrawingBox
     [TemplatePart(Name = "NodeLayer", Type = typeof(NodeLayer))]
     [TemplatePart(Name = "LinkLayer", Type = typeof(LinkLayer))]
     [TemplatePart(Name = "DynamicLayer", Type = typeof(LinkLayer))]
+    [TemplatePart(Name = "DragCanvas", Type = typeof(DragCanvas))]
+
     public partial class Diagram : ContentControl
     {
         public static ComponentResourceKey DefaultKey => new ComponentResourceKey(typeof(Diagram), "S.Diagram.Default");
@@ -26,9 +28,12 @@ namespace D.Diagram.DrawingBox
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Diagram), new FrameworkPropertyMetadata(typeof(Diagram)));
         }
 
+  
         private readonly List<Layer> _layers = new List<Layer>();
         [Browsable(false)]
         internal readonly Link _dynamicLink = new Link() { Visibility = Visibility.Collapsed };
+        [Browsable(false)]
+        public DragCanvas DragCanvas { get; private set; }
         [Browsable(false)]
         public NodeLayer NodeLayer { get; private set; }
         [Browsable(false)]
@@ -87,7 +92,8 @@ namespace D.Diagram.DrawingBox
                         {
                             part.State = FlowableState.Canceling;
                         }
-                    };
+                    }
+                    ;
                 };
                 binding.CanExecute += (l, k) =>
                 {
@@ -110,8 +116,9 @@ namespace D.Diagram.DrawingBox
                             flowable.Reset();
                             flowable.State = FlowableState.Ready;
                         }
-                        else { 
-                        
+                        else
+                        {
+
                         }
                     }
                     this.State = DiagramFlowableState.None;
@@ -380,6 +387,7 @@ namespace D.Diagram.DrawingBox
         {
             base.OnApplyTemplate();
 
+            this.DragCanvas = Template.FindName("DragCanvas", this) as DragCanvas;
             this.LinkLayer = Template.FindName("LinkLayer", this) as LinkLayer;
             this.NodeLayer = Template.FindName("NodeLayer", this) as NodeLayer;
             this.DynamicLayer = Template.FindName("DynamicLayer", this) as LinkLayer;
@@ -388,10 +396,44 @@ namespace D.Diagram.DrawingBox
             _layers.Add(this.LinkLayer);
             _layers.Add(this.NodeLayer);
             _layers.Add(this.DynamicLayer);
+            DragCanvas.ZoomChangedEvent += Diagram_ZoomChangedEvent;
             this.RefreshData();
         }
 
+        private void Diagram_ZoomChangedEvent(DependencyPropertyChangedEventArgs obj)
+        {
+            Scale = (double)obj.NewValue;
+        }
+
         #region - 属性 -
+
+
+
+        public bool AllowZoom
+        {
+            get { return (bool)GetValue(AllowZoomProperty); }
+            set { SetValue(AllowZoomProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllowZoom.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllowZoomProperty =
+            DependencyProperty.Register("AllowZoom", typeof(bool), typeof(Diagram), new PropertyMetadata(false));
+
+
+
+        /// <summary>
+        /// 缩放
+        /// </summary>
+        public double Scale
+        {
+            get { return (double)GetValue(ScaleProperty); }
+            set { SetValue(ScaleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Scale.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ScaleProperty =
+            DependencyProperty.Register("Scale", typeof(double), typeof(Diagram), new PropertyMetadata(1d));
+
 
         [Browsable(false)]
         public Style NodeStyle
@@ -720,6 +762,20 @@ namespace D.Diagram.DrawingBox
         #endregion
 
         #region - 事件 -
+
+        /// <summary>
+        /// 拖拽入口
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnDragEnter(DragEventArgs e)
+        {
+            base.OnDragEnter(e);
+            if (e.Data.GetData("DragGroup") is DragAdorner dragAdorner)
+            {
+                dragAdorner.Scale = Scale;
+            }
+
+        }
 
         public static readonly RoutedEvent AddLinkedRoutedEvent =
             EventManager.RegisterRoutedEvent("AddLinked", RoutingStrategy.Bubble, typeof(EventHandler<RoutedEventArgs<Link>>), typeof(Diagram));

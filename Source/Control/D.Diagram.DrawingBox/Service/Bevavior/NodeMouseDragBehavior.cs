@@ -54,10 +54,14 @@ namespace D.Diagram.DrawingBox
                 return;
 
             Node.SetIsDragging(this.AssociatedObject, true);
+            var scale = _layer.Scale;
+            Point p = e.GetPosition(_layer); 
+            double xt = p.X - _start.Value.X;
+            double yt = p.Y - _start.Value.Y;
 
-            Point p = e.GetPosition(_layer);
-            double x = p.X - _start.Value.X;
-            double y = p.Y - _start.Value.Y;
+            double x = xt == 0 ? xt : xt / scale;
+            double y = yt == 0 ? yt : yt / scale; ;
+
             //  Do ：更新Node
             Point old = NodeLayer.GetPosition(this.AssociatedObject);
             Point point = new Point(old.X + x, old.Y + y);
