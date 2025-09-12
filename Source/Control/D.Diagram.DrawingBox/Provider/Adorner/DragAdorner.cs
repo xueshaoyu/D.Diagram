@@ -19,8 +19,9 @@ namespace D.Diagram.DrawingBox
         public double Scale { get; set; } = 1;
         public DrapAdornerMode DropAdornerMode { get; set; }
 
-        public DragAdorner(UIElement adornedElement, Point offse) : base(adornedElement)
+        public DragAdorner(UIElement adornedElement, Point offset) : base(adornedElement)
         {
+            Offset = offset; 
             vbrush = new VisualBrush(AdornedElement);
             vbrush.Opacity = 0.5;
         }
