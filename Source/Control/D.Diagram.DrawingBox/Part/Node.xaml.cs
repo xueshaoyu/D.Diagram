@@ -345,25 +345,24 @@ namespace D.Diagram.DrawingBox
             }
         }
 
-        public async Task<bool?> StartPort(Action<Part> builder = null)
+        public virtual async Task<bool?> StartPort(Action<Part> builder = null)
         {
-            Func<Node, Port, Task<bool?>> run = null;
+            Func<Node,Node, Port, Task<bool?>> run = null;
 
-            run = async (l, f) =>
+            run = async (fromNode,currentNode, port) =>
             {
-                builder?.Invoke(l);
-                if (l.GetContent<IFlowableNode>() is IFlowableNode nodeData)
+                builder?.Invoke(currentNode);
+                if (currentNode.GetContent<IFlowableNode>() is IFlowableNode nodeData)
                 {
                     if (this.GetDispatcherValue(x => x.State) == FlowableState.Canceling)
                         return null;
-                    this.GetDiagram().OnRunningPartChanged(l);
-                    FlowableResult result = await nodeData.TryInvokeAsync(f, l) as FlowableResult;
+                    this.GetDiagram().OnRunningPartChanged(currentNode);
+                    FlowableResult result = await nodeData.TryInvokeAsync(port, currentNode) as FlowableResult;
                     if (result == null || result.State == FlowableResultState.Error)
                     {
                         return false;
-                    }
-
-                    IEnumerable<Link> links = l.LinksOutOf.Where(x => x.GetContent<IFlowableLink>().IsMatchResult(result));
+                    }  
+                    IEnumerable<Link> links = currentNode.LinksOutOf.Where(x => x.GetContent<IFlowableLink>().IsMatchResult(result));
                     foreach (Link link in links)
                     {
                         if (link.GetDispatcherValue(x => x.State) == FlowableState.Canceling)
@@ -371,7 +370,7 @@ namespace D.Diagram.DrawingBox
                         builder?.Invoke(link.FromPort);
                         IFlowablePort portData = link.FromPort?.GetContent<IFlowablePort>();
                         this.GetDiagram().OnRunningPartChanged(link.FromPort);
-                        IFlowableResult rFrom = await portData?.TryInvokeAsync(l, link.FromPort);
+                        IFlowableResult rFrom = await portData?.TryInvokeAsync(currentNode, link.FromPort);
                         if (rFrom?.State == FlowableResultState.Error)
                             return false;
 
@@ -396,16 +395,16 @@ namespace D.Diagram.DrawingBox
                             return false;
 
                         //  Do ：递归执行ToNode
-                        bool? b = await run?.Invoke(link.ToNode, link.ToPort);
+                        bool? b = await run?.Invoke(link.FromNode,link.ToNode, link.ToPort);
                         if (b != true) return b;
                     }
                 }
                 return true;
             };
-            return await run.Invoke(this, null);
+            return await run.Invoke(null,this, null);
         }
 
-        public async Task<bool?> StartLink(Action<Part> builder = null)
+        public virtual async Task<bool?> StartLink(Action<Part> builder = null)
         {
             Func<Node, Link, Task<bool?>> run = null;
             run = async (l, f) =>
@@ -445,7 +444,7 @@ namespace D.Diagram.DrawingBox
             return await run.Invoke(this, null);
         }
 
-        public async Task<bool?> StartNode(Action<Node> builder = null)
+        public virtual async Task<bool?> StartNode(Action<Node> builder = null)
         {
             Func<Node, Task<bool?>> run = null;
             run = async l =>

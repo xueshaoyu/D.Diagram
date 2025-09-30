@@ -7,6 +7,9 @@ using System.Windows.Media.Converters;
 
 namespace D.Diagram.Presenter
 {
+    /// <summary>
+    /// 几何图像工作六节点抽象类
+    /// </summary>
     public abstract class GeometryNodeDataBase : FlowableNodeData
     {
         public GeometryNodeDataBase()

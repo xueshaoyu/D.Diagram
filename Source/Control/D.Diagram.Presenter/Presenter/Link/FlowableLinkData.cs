@@ -14,6 +14,7 @@ namespace D.Diagram.Presenter
     /// </summary>
     public class FlowableLinkData : TextLinkData, IFlowableLink
     {
+        public IFlowableResult Result { get; set; }
         private FlowableState _state = FlowableState.Ready;
         //[XmlIgnore]
         [Browsable(false)]
@@ -127,6 +128,7 @@ namespace D.Diagram.Presenter
                 this.IsBuzy = true;
                 //IocLog.Instance?.Info($"正在执行<{this.GetType().Name}>:{this.Text}");
                 IFlowableResult result = await InvokeAsync(previors, current);
+                Result = result;
                 //IocLog.Instance?.Info(result.State == FlowableResultState.Error ? $"运行错误<{this.GetType().Name}>:{this.Text} {result.Message}" : $"执行完成<{this.GetType().Name}>:{this.Text} {result.Message}");
                 this.State = result.State == FlowableResultState.OK ? FlowableState.Success : FlowableState.Error;
                 return result;
@@ -188,6 +190,10 @@ namespace D.Diagram.Presenter
             this.RefreshText();
         }
         private T _nodeResult;
+
+        /// <summary>
+        /// 节点结果
+        /// </summary>
         [Display(Name = "节点结果", GroupName = "常用")]
         public virtual T NodeResult
         {

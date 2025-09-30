@@ -834,7 +834,7 @@ namespace D.Diagram.DrawingBox
         }
 
 
-        internal void OnRunningPartChanged(Part part)
+        public void OnRunningPartChanged(Part part)
         {
             RoutedEventArgs<Part> args = new RoutedEventArgs<Part>(RunningPartChangedRoutedEvent, this, part);
             this.RaiseEvent(args);
